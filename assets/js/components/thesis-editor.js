@@ -349,14 +349,14 @@ class ThesisEditor extends React.Component {
 
   componentDidUpdate () {
     const el = document.querySelector('body')
-    el.classList.add('thesis-body')
-
     const editors = this.allContentEditors()
 
     if (this.state.editing) {
+      el.classList.add('thesis-body')
       el.classList.add('thesis-editing')
       this.addContentEditors()
     } else {
+      el.classList.remove('thesis-body')
       el.classList.remove('thesis-editing')
       this.removeContentEditors()
     }
