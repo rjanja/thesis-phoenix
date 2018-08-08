@@ -56,6 +56,7 @@ class ThesisEditor extends React.Component {
     this.importExportRestorePressed = this.importExportRestorePressed.bind(this)
     this.importData = this.importData.bind(this)
     this.updateImportProgress = this.updateImportProgress.bind(this)
+    this.keyPressed = this.keyPressed.bind(this)
 
     // External editors
     if (this.props.external.customHTMLEditor) {
@@ -178,6 +179,12 @@ class ThesisEditor extends React.Component {
     }
   }
 
+  keyPressed (event){
+    if (event.key == 'Escape' && this.state.editing) {
+      this.editPressed()
+    }
+  }
+
   save (page, contents) {
     this.props.external.save(page, contents, () => {
       this.setState({editing: false, pageModified: false, trayOpen: false})
@@ -224,6 +231,7 @@ class ThesisEditor extends React.Component {
     this.rawHtmlEditor.enable()
     this.imageEditor.enable()
     this.textEditor.enable()
+    addEventListener("keydown", this.keyPressed, false)
   }
 
   removeContentEditors () {
@@ -231,6 +239,7 @@ class ThesisEditor extends React.Component {
     this.rawHtmlEditor.disable()
     this.imageEditor.disable()
     this.textEditor.disable()
+    removeEventListener("keydown", this.keyPressed, false)
   }
 
   pageSettings () {
